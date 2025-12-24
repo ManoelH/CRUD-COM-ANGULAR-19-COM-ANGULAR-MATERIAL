@@ -16,6 +16,14 @@ export class ClientService {
     localStorage.setItem(ClientService.REPO_CLIENTS, JSON.stringify(storage));
   }
 
+  searchClients(name: string) {
+    if(!name)
+      return this.getStorage();
+    else {
+      return this.getStorage().filter(client => client.name?.indexOf(name) !== -1);
+    }
+  }
+
   getStorage() :Client[] {
     const clientRepository = localStorage.getItem(ClientService.REPO_CLIENTS);
     
