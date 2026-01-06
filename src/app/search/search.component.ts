@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { ClientService } from '../service/client.service';
 import { Client } from '../model/Client';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -28,10 +29,12 @@ import { Client } from '../model/Client';
 export class SearchComponent implements OnInit{
 
   clientList: Client[] = [];
-  columnsTable: string [] = ['id', 'name', 'cpf', 'birthdayDate', 'email'];
+  columnsTable: string [] = ['id', 'name', 'cpf', 'birthdayDate', 'email', "actions"];
   filterValue: string = '';
 
-  constructor(private clientService: ClientService) {
+  constructor(
+    private clientService: ClientService,
+    private router: Router) {
 
   }
 
@@ -44,5 +47,9 @@ export class SearchComponent implements OnInit{
       this.clientList = this.clientService.searchClients(name);
     else 
       this.clientList = this.clientService.searchClients(this.filterValue);
+  }
+
+  getClientToEdit(id: string) {
+    this.router.navigate(['/register'], {queryParams: { "id": id}});
   }
 }

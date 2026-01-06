@@ -66,8 +66,18 @@
                         <td mat-cell *matCellDef="let client"> {{client.email}} </td>
                     </ng-container>
 
-                      <tr mat-header-row *matHeaderRowDef="columnsTable"></tr>
-                      <tr mat-row *matRowDef="let row; columns: columnsTable;"></tr>
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef> Actions </th>
+                        <td mat-cell *matCellDef="let client">
+                            <button type="button" mat-button (click)="getClientToEdit(client.id)">
+                            <mat-icon fontIcon="edit"></mat-icon>
+                                Edit
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="columnsTable"></tr>
+                    <tr mat-row *matRowDef="let row; columns: columnsTable;"></tr>
                 </table>
             </mat-card-content>
         </mat-card>

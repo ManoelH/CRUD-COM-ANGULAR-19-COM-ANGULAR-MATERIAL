@@ -27,7 +27,9 @@ export class RegisterComponent {
 
   client: Client = Client.newClient();
 
-  constructor(private clientService: ClientService) {
+  constructor(
+    private clientService: ClientService
+  ) {
 
   }
 
