@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { ClientService } from '../service/client.service';
-import { Client } from '../model/Client';
+import { Client } from '../model/client.model';
 import { Router } from '@angular/router';
 
 @Component({

@@ -7,22 +7,29 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Client } from '../model/Client';
+import { MatSelectModule } from '@angular/material/select';
+import { Client } from '../model/client.model';
 import { ClientService } from '../service/client.service'; 
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask'
+import { BrasilApiService } from '../service/brasilapi.service';
+import { City } from '../model/brasilapi/city.model';
+import { State } from '../model/brasilapi/state.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   imports: [FlexLayoutModule,
-     MatCardModule, 
-     FormsModule, 
-     MatFormField, 
-     MatLabel, 
-     MatInputModule,
-     MatIconModule,
-     MatButtonModule,
-    NgxMaskDirective],
+    MatCardModule, 
+    FormsModule, 
+    MatFormField, 
+    MatLabel, 
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatSelectModule,
+    NgxMaskDirective,
+    CommonModule],
   providers: [
     provideNgxMask()
   ],  
@@ -34,10 +41,13 @@ export class RegisterComponent implements OnInit{
 
   client: Client = Client.newClient();
   isUpdate: boolean = false;
+  states: State[] = [];
+  cities: City[] = [];
   private snackBar: MatSnackBar = inject(MatSnackBar);
 
   constructor(
     private clientService: ClientService,
+    private brasilApiService: BrasilApiService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -45,7 +55,10 @@ export class RegisterComponent implements OnInit{
   }
 
   ngOnInit() {
+    this.listStates();
+
     this.route.queryParamMap.subscribe((query:any) => {
+      
       const params = query["params"];
       const id = params["id"];
     
@@ -73,5 +86,15 @@ export class RegisterComponent implements OnInit{
 
   clearClient() {
     this.client = Client.newClient();
+  }
+
+  listStates() {
+    this.brasilApiService.listStates().subscribe({
+      next: states => {
+        this.states = states;
+      },
+      error: erro => console.log('An error has ocorred')
+    });
+    
   }
 }
