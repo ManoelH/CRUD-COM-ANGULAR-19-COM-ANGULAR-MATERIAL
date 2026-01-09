@@ -30,7 +30,7 @@
                         <mat-form-field class="full-width">
                             <mat-label>CPF: *</mat-label>
                             <input type="text" placeholder="Enter your CPF" matInput
-                                [(ngModel)]="client.cpf" name="cpf"/>
+                                mask="000.000.000-00" [(ngModel)]="client.cpf" name="cpf"/>
                         </mat-form-field>
                     </div>
                   </div>
@@ -60,7 +60,8 @@
                     </button>
                 }
 
-                <button mat-flat-button color="accent">
+                <button mat-flat-button  type="button" (click)="clearClient()"
+                     color="accent">
                     <mat-icon fontIcon="backspace"></mat-icon>
                     Clear
                 </button>
