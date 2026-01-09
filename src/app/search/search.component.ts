@@ -31,6 +31,7 @@ export class SearchComponent implements OnInit{
   clientList: Client[] = [];
   columnsTable: string [] = ['id', 'name', 'cpf', 'birthdayDate', 'email', "actions"];
   filterValue: string = '';
+  isDeleting: boolean = false;
 
   constructor(
     private clientService: ClientService,
@@ -51,5 +52,14 @@ export class SearchComponent implements OnInit{
 
   getClientToEdit(id: string) {
     this.router.navigate(['/register'], {queryParams: { "id": id}});
+  }
+
+  prepareToDelete(client: Client) {
+    client.isDeleting = true;
+  }
+
+  deleteCliente(client: Client) {
+    this.clientService.delete(client);
+    this.searchClients();
   }
 }

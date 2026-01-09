@@ -48,15 +48,17 @@
 
             <mat-card-actions>
             
-                <button type="submit" mat-flat-button color="primary">
-                    <mat-icon fontIcon="save"></mat-icon>
-                    Save
-                </button>
-
-                <button mat-flat-button color="primary">
-                    <mat-icon fontIcon="refresh"></mat-icon>
-                    Update
-                </button>
+                @if (!isUpdate) {
+                    <button type="submit" mat-flat-button color="primary">
+                        <mat-icon fontIcon="save"></mat-icon>
+                        Save
+                    </button>
+                } @else {
+                    <button mat-flat-button color="primary">
+                        <mat-icon fontIcon="refresh"></mat-icon>
+                        Update
+                    </button>
+                }
 
                 <button mat-flat-button color="accent">
                     <mat-icon fontIcon="backspace"></mat-icon>

@@ -16,12 +16,32 @@ export class ClientService {
     localStorage.setItem(ClientService.REPO_CLIENTS, JSON.stringify(storage));
   }
 
+  update(client: Client) {
+    const storage = this.getStorage();
+    storage.forEach(c => {
+      if(c.id === client.id) {
+        Object.assign(c, client);
+      }
+    });
+    localStorage.setItem(ClientService.REPO_CLIENTS, JSON.stringify(storage));
+  }
+
+  delete(client: Client) {
+    const storage = this.getStorage();
+    const clients: Client[] = storage.filter(c => c.id !== client.id)
+    localStorage.setItem(ClientService.REPO_CLIENTS, JSON.stringify(clients));
+  }
+
   searchClients(name: string) {
     if(!name)
       return this.getStorage();
     else {
       return this.getStorage().filter(client => client.name?.indexOf(name) !== -1);
     }
+  }
+
+  findClientById(id: string) : Client | undefined{
+    return this.getStorage().find(client => client.id === id);
   }
 
   getStorage() :Client[] {

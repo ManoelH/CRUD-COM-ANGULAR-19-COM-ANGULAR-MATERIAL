@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Client } from '../model/Client';
 import { ClientService } from '../service/client.service'; 
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -23,18 +24,37 @@ import { ClientService } from '../service/client.service';
   styleUrl: './register.component.scss'
 })
 
-export class RegisterComponent {
+export class RegisterComponent implements OnInit{
 
   client: Client = Client.newClient();
+  isUpdate: boolean = false;
 
   constructor(
-    private clientService: ClientService
+    private clientService: ClientService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
 
   }
 
+  ngOnInit() {
+    this.route.queryParamMap.subscribe((query:any) => {
+      const params = query["params"];
+      const id = params["id"];
+    
+      this.isUpdate = (id != undefined);
+      if(this.isUpdate) this.client = this.clientService.findClientById(id) || Client.newClient();
+      else this.client = Client.newClient();
+    });
+  }
+
   saveClient() {
-    this.clientService.save(this.client);
-    this.client = Client.newClient();
+    if(!this.isUpdate) {
+      this.clientService.save(this.client);
+      this.client = Client.newClient();
+    } else {
+      this.clientService.update(this.client);
+      this.router.navigate(['/search']);
+    }
   }
 }
