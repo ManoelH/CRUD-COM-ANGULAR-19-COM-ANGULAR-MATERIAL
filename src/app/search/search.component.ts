@@ -30,7 +30,7 @@ import { Router } from '@angular/router';
 export class SearchComponent implements OnInit{
 
   clientList: Client[] = [];
-  columnsTable: string [] = ['id', 'name', 'cpf', 'birthdayDate', 'email', "actions"];
+  columnsTable: string [] = ['id', 'name', 'cpf', 'birthdayDate', 'email', "state", "city", "actions"];
   filterValue: string = '';
   isDeleting: boolean = false;
   private snackBar: MatSnackBar = inject(MatSnackBar);

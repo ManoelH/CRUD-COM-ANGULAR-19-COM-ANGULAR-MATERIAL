@@ -49,9 +49,22 @@
                     <div fxLayout="column" fxFlex="400px">
                         <mat-form-field class="full-width">
                             <mat-label>States: *</mat-label>
-                            <mat-select>
+                            <mat-select [(value)]="client.state" (selectionChange)="listCities($event)">
                                 <mat-option *ngFor="let state of states" [value]="state.sigla">
                                     {{ state.sigla }} - {{ state.nome }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
+                    <div fxLayout="column" fxFlex="400px">
+                        <mat-form-field class="full-width">
+                            <mat-label>City: *</mat-label>
+                            <mat-select [(value)]="client.city">
+                                <mat-option *ngFor="let city of cities" [value]="city.nome">
+                                    {{ city.nome }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>

@@ -36,7 +36,10 @@ export class ClientService {
     if(!name)
       return this.getStorage();
     else {
-      return this.getStorage().filter(client => client.name?.indexOf(name) !== -1);
+      return this.getStorage().filter(client => {
+        const nameUpper = client.name?.toUpperCase();
+        return nameUpper?.indexOf(name.toUpperCase()) !== -1;
+      });
     }
   }
 
